@@ -1,0 +1,68 @@
+{
+  "name": "deadline-dungeon",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DDL Boss 战 · 把拖延症打成经验值",
+  "author": "Deadline Dungeon",
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "dev:desktop": "node scripts/dev-desktop.mjs",
+    "build": "tsc --noEmit && vite build && node scripts/build-electron.mjs",
+    "test": "vitest run",
+    "preview": "vite preview --host 127.0.0.1",
+    "start": "electron .",
+    "dist": "npm run build && electron-builder --win nsis --x64",
+    "dist:portable": "npm run build && electron-builder --win portable --x64"
+  },
+  "dependencies": {
+    "lucide-react": "^1.59.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "zod": "^4.1.12",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "latest",
+    "electron": "44.4.5",
+    "electron-builder": "^26.15.3",
+    "esbuild": "latest",
+    "playwright": "latest",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4",
+    "vitest": "latest"
+  },
+  "build": {
+    "appId": "com.deadlinedungeon.desktop",
+    "productName": "DDL Boss",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "public/assets/icon.png",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "DDL Boss",
+      "artifactName": "Deadline-Dungeon-${version}-Setup.${ext}"
+    },
+    "artifactName": "Deadline-Dungeon-${version}-${arch}.${ext}",
+    "portable": {
+      "artifactName": "Deadline-Dungeon-${version}-Portable.${ext}"
+    }
+  }
+}
